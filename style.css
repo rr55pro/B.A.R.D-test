@@ -10,8 +10,8 @@ header img.logo{height: 84px;
     top: 0;
     left: 0;}
 header div.logodev{position: fixed; top: 0; left: 0; width: 100%}
-header h1{margin:0;font-size:28px;padding-left: 60px;}
-.sub{color:#444;margin-top:4px;padding-left: 60px}
+header h1{margin:0;font-size:28px;padding-left: 50px;}
+.sub{color:#444;margin-top:4px;padding-left: 50px}
 nav{margin:14px 0 22px;border-top:1px solid var(--grid);border-bottom:1px solid var(--grid);padding:10px 0}
 nav a{color:var(--accent);text-decoration:none;font-weight:700;margin-right:14px}
 .panel{background:#fff;border:1px solid #cfc7b6;box-shadow:0 1px 0 #bfb7a4;padding:16px;margin:0 0 16px}
