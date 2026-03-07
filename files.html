@@ -63,7 +63,7 @@
 
     /* Progress bar for Active users */
     .bar{margin-top:.5rem;height:10px;background:#0c1220;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .bar-fill{height:100%;background:var(--blue);width:0%;transition:width .3s ease}
+    .bar-fill{height:100%;background:#4ea3ff;width:0%;transition:width .3s ease}
 
     /* Small search input */
     .search{flex:1;min-width:240px;background:#0f1117;color:#e6e6e6;border:1px solid #1f2430;border-radius:.4rem;padding:.55rem .65rem}
@@ -102,15 +102,13 @@
         <div class="card">
           <h3>Active projects</h3>
           <div class="big ok" id="kpiProjects">—</div>
-          <span class="tag">lore / R&D</span>
+          <span class="tag">lore / R&amp;D</span>
         </div>
         <div class="card">
           <h3>Users listed</h3>
           <div class="big" id="kpiUsers">—</div>
           <span class="tag">directory size</span>
         </div>
-
-        <!-- New: Active users (live) -->
         <div class="card">
           <h3>Active users</h3>
           <div class="big" id="activeUsersCount">0</div>
@@ -126,8 +124,7 @@
           <h3>Quick actions</h3>
           <div class="actions" role="group" aria-label="Quick actions">
             #bard-robotsAdd robot entry</a>
-            #bard-filesUpload doc</a>
-            #usersUpdate users</a>
+            <a class="btn" href="#bard            #usersUpdate users</a>
             #projectsLog project note</a>
             ./projects.htmlOpen Projects</a>
             ./index.htmlGo to Admin Home</a>
@@ -138,7 +135,7 @@
           <h3>Recent files</h3>
           <div class="list">
             ./assets/docs/overview.pdfoverview.pdf <small>docs</small></a>
-            <a href="./assets/projects/roadmapp.md <small>projects</small></a>
+            ./assets/projects/roadmap.mdroadmap.md <small>projects</small></a>
             ./syllabus.htmlsyllabus.html <small>site</small></a>
           </div>
         </div>
@@ -149,7 +146,6 @@
     <details class="group" id="bard-robots" open>
       <summary>B.A.R.D ROBOTS</summary>
       <div class="group-body">
-
         <p class="sub" style="margin:.25rem 0 .6rem;font-size:1.05rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em">
           Catalog
         </p>
@@ -159,8 +155,8 @@
           <summary>Robot – NAME</summary>
           <div class="entry">
             <dl>
-              <dt>Robot type</dt><dd><!-- e.g., Recon / Assault / Utility --></dd>
-              <dt>Robot information</dt><dd><!-- specs, sensors, power, chassis, software; cross‑check with Atomfall notes --></dd>
+              <dt>Robot type</dt><dd></dd>
+              <dt>Robot information</dt><dd></dd>
             </dl>
           </div>
         </details>
@@ -191,7 +187,7 @@
       </div>
     </details>
 
-    <!-- ================= USERS (data‑driven from inline JSON) ================= -->
+    <!-- ================= USERS (shown inside Files page) ================= -->
     <details class="group" id="users" open>
       <summary>USERS</summary>
       <div class="group-body">
@@ -234,36 +230,14 @@
         </div>
       </div>
     </details>
-
   </main>
 
-  <!-- ---------- Inline data (edit this to update Users) ---------- -->
+  <!-- ---------- Inline Users JSON (edit this list) ---------- -->
   <script id="users-data" type="application/json">
   [
-    {
-      "name": "A. Operator",
-      "role": "Field Lead – Recon",
-      "clearance": "ALPHA",
-      "status": "Active",
-      "contact": "mailto:operator@example.com",
-      "notes": "Primary liaison. Cross‑checked with Atomfall notes."
-    },
-    {
-      "name": "B. Engineer",
-      "role": "R&D – Robotics",
-      "clearance": "BETA",
-      "status": "Active",
-      "contact": "mailto:engineer@example.com",
-      "notes": "Maintains chassis and power modules."
-    },
-    {
-      "name": "C. Archivist",
-      "role": "Records – Lore Projects",
-      "clearance": "GAMMA",
-      "status": "Reserve",
-      "contact": "mailto:archivist@example.com",
-      "notes": "Curates B.A.R.D project history."
-    }
+    { "name":"A. Operator","role":"Field Lead – Recon","clearance":"ALPHA","status":"Active","contact":"mailto:operator@example.com","notes":"Primary liaison. Cross‑checked with Atomfall notes."},
+    { "name":"B. Engineer","role":"R&D – Robotics","clearance":"BETA","status":"Active","contact":"mailto:engineer@example.com","notes":"Maintains chassis and power modules."},
+    { "name":"C. Archivist","role":"Records – Lore Projects","clearance":"GAMMA","status":"Reserve","contact":"mailto:archivist@example.com","notes":"Curates B.A.R.D project history."}
   ]
   </script>
 
@@ -353,14 +327,15 @@
 
     const isConfigured =
       firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith("YOUR_") &&
-      firebaseConfig.projectId && !firebaseConfig.projectId.startsWith("YOUR_");
+      firebaseConfig.projectId && !firebaseConfig.projectId.startsWith("YOUR_") &&
+      firebaseConfig.databaseURL && !firebaseConfig.databaseURL.includes("YOUR_PROJECT_ID");
 
     const countEl = document.getElementById('activeUsersCount');
     const barEl   = document.getElementById('activeUsersBar');
     const pctEl   = document.getElementById('activeUsersPct');
 
     function updateActiveUsers(n){
-      // Scale: 1 user = 1% (matches your example). Change the math if you want a different scale.
+      // Scale: 1 user = 1% (your example). Change math if you want a different scale.
       const pct = Math.max(0, Math.min(100, n));
       countEl.textContent = String(n);
       barEl.style.width = pct + '%';
@@ -372,13 +347,9 @@
       console.warn("[B.A.R.D] Active users is disabled (no Firebase config set).");
     } else {
       try {
-        const [{ initializeApp },
-               { getDatabase, ref, onValue, set, onDisconnect, serverTimestamp },
-               { getAuth, signInAnonymously, onAuthStateChanged }] = await Promise.all([
-          import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js'),
-          import('https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js'),
-          import('https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js')
-        ]);
+        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js');
+        const { getDatabase, ref, onValue, set, onDisconnect, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js');
+        const { getAuth, signInAnonymously, onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js');
 
         const app = initializeApp(firebaseConfig);
         const db  = getDatabase(app);
@@ -391,18 +362,21 @@
           if (!user) return;
           const uid = user.uid;
           const sessionId = Math.random().toString(36).slice(2,10);
-          const myRefPath = `presence/${uid}/${sessionId}`;
-
-          const { ref: dbRef } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js');
-
-          const myRef = dbRef(db, myRefPath);
+          const myRef = ref(db, `presence/${uid}/${sessionId}`);
           await set(myRef, { ts: serverTimestamp(), page: location.pathname });
           onDisconnect(myRef).remove();
 
-          const presenceRoot = dbRef(db, 'presence');
+          // Clean up on mobile/tab close
+          addEventListener('pagehide', () => navigator.sendBeacon?.(
+            firebaseConfig.databaseURL + '/presence/' + encodeURIComponent(uid) + '/' + sessionId + '.json',
+            JSON.stringify(null)
+          ));
+
+          // Listen to total active sessions across all users
+          const presenceRoot = ref(db, 'presence');
           onValue(presenceRoot, (snap) => {
             let total = 0;
-            snap.forEach(userNode => { total += userNode.size || userNode.numChildren(); });
+            snap.forEach(userNode => { total += userNode.numChildren(); });
             updateActiveUsers(total);
           });
         });
