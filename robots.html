@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Robotics Division</title>
-style.css
+../style.css
 
-<!-- Telemetry chip styles -->
+<!-- Telemetry chip styles (CPU / RAM / TEMP only) -->
 <style>
 .telemetry{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:12px;color:#555}
 .telemetry .chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #cfc7b6;border-radius:6px;padding:4px 6px}
@@ -20,123 +20,122 @@ style.css
 
 <body>
 <div class="wrap">
-  <header>
-    assets/bard_logo.png
-    <div><h1>Robotics Division</h1><div class="sub">Autonomous sentry platforms &amp; field systems</div></div>
-  </header>
+<header>
+  ../assets/bard_logo.png
+  <div><h1>Robotics Division</h1><div class="sub">Autonomous sentry platforms &amp; field systems</div></div>
+</header>
 
-  <nav>
-    index.htmlHome</a>
-    bard.htmlAbout B.A.R.D</a>
-    locations.htmlLocations</a>
-    projects.htmlProjects</a>
-    robots.html<strong>Robotics</strong></a>
-    dossier.htmlDossiers</a>
-    terminal.htmlTerminal</a>
-    admin/admin-login.htmlAdmin</a>
-  </nav>
+<nav>
+  ../index.htmlHome</a>
+  ../bard.htmlAbout B.A.R.D</a>
+  ../locations.htmlLocations</a>
+  ../projects.htmlProjects</a>
+  ../robots.html<strong>Robotics</strong></a>
+  ../dossier.htmlDossiers</a>
+  ../terminal.htmlTerminal</a>
+  ../admin/admin-login.htmlAdmin</a>
+</nav>
 
-  <section class="panel">
-    <h2>Overview</h2>
-    <p>B.A.R.D deployed multiple sentry families to guard approaches, corridors and keycard doors. Many platforms remained powered after the incident and continue limited patrols.</p>
-  </section>
+<section class="panel">
+  <h2>Overview</h2>
+  <p>B.A.R.D deployed multiple sentry families to guard approaches, corridors and keycard doors. Many platforms remained powered after the incident and continue limited patrols.</p>
+</section>
 
-  <section class="panel grid2">
-    <div>
-      <h2>Class B Robot Unit 45</h2>
-      assets/robots/class_b_unit_45.png
-      <p>Mid‑weight chassis for patrol and door security; capable of mounting belt‑fed weapons with stabilised fire.</p>
-      <div class="telemetry" data-cpu="41" data-ram="31" data-gpu="18" data-temp="48">
-        <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
-        <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
-        <div class="chip"><span class="label">GPU</span><div class="bar"><div class="fill" data-key="gpu"></div></div><span class="val" data-key="gpu">--</span></div>
-        <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
-      </div>
+<section class="panel grid2">
+  <div>
+    <h2>Class B Robot Unit 45</h2>
+    ../assets/robots/class_b_unit_45.png
+    <p>Mid‑weight chassis for patrol and door security; capable of mounting belt‑fed weapons with stabilised fire.</p>
+    <!-- Telemetry -->
+    <div class="telemetry" data-cpu="41" data-ram="31" data-temp="48">
+      <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
+      <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
+      <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
     </div>
+  </div>
 
-    <div>
-      <h2>Orange B.A.R.D Robot</h2>
-      assets/robots/bard_robot_orange.png
-      <p>Hazard‑panel livery; widely deployed across Interchange and exterior compounds.</p>
-      <div class="telemetry" data-cpu="34" data-ram="22" data-gpu="13" data-temp="42">
-        <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
-        <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
-        <div class="chip"><span class="label">GPU</span><div class="bar"><div class="fill" data-key="gpu"></div></div><span class="val" data-key="gpu">--</span></div>
-        <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
-      </div>
+  <div>
+    <h2>Orange B.A.R.D Robot</h2>
+    ../assets/robots/bard_robot_orange.png
+    <p>Hazard‑panel livery; widely deployed across Interchange and exterior compounds.</p>
+    <!-- Telemetry -->
+    <div class="telemetry" data-cpu="34" data-ram="22" data-temp="42">
+      <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
+      <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
+      <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
     </div>
+  </div>
 
-    <div>
-      <h2>White B.A.R.D Robot</h2>
-      <img src="assets/d_robot_white.png
-      <p>Interior patrol platform for laboratories and corridors; commonly paired with alarm nodes and card locks.</p>
-      <div class="telemetry" data-cpu="28" data-ram="19" data-gpu="11" data-temp="40">
-        <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
-        <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
-        <div class="chip"><span class="label">GPU</span><div class="bar"><div class="fill" data-key="gpu"></div></div><span class="val" data-key="gpu">--</span></div>
-        <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
-      </div>
+  <div>
+    <h2>White B.A.R.D Robot</h2>
+    ../assets/robots/bard_robot_white.png
+    <p>Interior patrol platform for laboratories and corridors; commonly paired with alarm nodes and card locks.</p>
+    <!-- Telemetry -->
+    <div class="telemetry" data-cpu="28" data-ram="19" data-temp="40">
+      <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
+      <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
+      <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
     </div>
+  </div>
 
-    <div>
-      <h2>Black B.A.R.D Robot</h2>
-      assets/robots/bard_robot_black.png
-      <p>Low‑visibility finish for night posts and yard coverage; harder to spot at range.</p>
-      <div class="telemetry" data-cpu="78" data-ram="76" data-gpu="35" data-temp="68" data-boost="black">
-        <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
-        <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
-        <div class="chip"><span class="label">GPU</span><div class="bar"><div class="fill" data-key="gpu"></div></div><span class="val" data-key="gpu">--</span></div>
-        <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
-      </div>
+  <div>
+    <h2>Black B.A.R.D Robot</h2>
+    ../assets/robots/bard_robot_black.png
+    <p>Low‑visibility finish for night posts and yard coverage; harder to spot at range.</p>
+    <!-- Telemetry (more aggressive) -->
+    <div class="telemetry" data-cpu="78" data-ram="76" data-temp="68" data-boost="black">
+      <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
+      <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
+      <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
     </div>
+  </div>
 
-    <div>
-      <h2>Flamethrower Variant</h2>
-      assets/robots/bard_robot_flamethrower.png
-      <p>Area‑denial projector for corridors and decon zones. Avoid confined spaces.</p>
-      <div class="telemetry" data-cpu="52" data-ram="48" data-gpu="60" data-temp="72" data-boost="flame">
-        <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
-        <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
-        <div class="chip"><span class="label">GPU</span><div class="bar"><div class="fill" data-key="gpu"></div></div><span class="val" data-key="gpu">--</span></div>
-        <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
-      </div>
+  <div>
+    <h2>Flamethrower Variant</h2>
+    ../assets/robots/bard_robot_flamethrower.png
+    <p>Area‑denial projector for corridors and decon zones. Avoid confined spaces.</p>
+    <!-- Telemetry (hotter) -->
+    <div class="telemetry" data-cpu="52" data-ram="48" data-temp="72" data-boost="flame">
+      <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
+      <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
+      <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
     </div>
+  </div>
 
-    <div>
-      <h2>Heavy Machine‑Gun Variant</h2>
-      assets/robots/bard_robot_hmg.png
-      <p>Perimeter suppression; maintain hard cover and break line‑of‑sight.</p>
-      <div class="telemetry" data-cpu="47" data-ram="36" data-gpu="29" data-temp="55">
-        <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
-        <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
-        <div class="chip"><span class="label">GPU</span><div class="bar"><div class="fill" data-key="gpu"></div></div><span class="val" data-key="gpu">--</span></div>
-        <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
-      </div>
+  <div>
+    <h2>Heavy Machine‑Gun Variant</h2>
+    ../assets/robots/bard_robot_hmg.png
+    <p>Perimeter suppression; maintain hard cover and break line‑of‑sight.</p>
+    <!-- Telemetry -->
+    <div class="telemetry" data-cpu="47" data-ram="36" data-temp="55">
+      <div class="chip"><span class="label">CPU</span><div class="bar"><div class="fill" data-key="cpu"></div></div><span class="val" data-key="cpu">--</span></div>
+      <div class="chip"><span class="label">RAM</span><div class="bar"><div class="fill" data-key="ram"></div></div><span class="val" data-key="ram">--</span></div>
+      <div class="chip temp"><span class="label">TEMP</span><div class="bar"><div class="fill" data-key="temp"></div></div><span class="val" data-key="temp">--</span></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="panel">
-    <h2>Field Guidance</h2>
-    <table class="table">
-      <thead><tr><th>Variant</th><th>Primary Threat</th><th>Mitigation</th><th>Typical Area</th></tr></thead>
-      <tbody>
-        <tr><td>Class B Unit 45</td><td>Accurate automatic fire</td><td>Use corners; flank to disable; avoid open sightlines</td><td>Patrol routes / bunker doors</td></tr>
-        <tr><td>Orange/White/Black</td><td>Standard sentry routines</td><td>Noise distractions; stay at range; monitor motor whine</td><td>Interchange, labs, yards</td></tr>
-        <tr><td>Flamethrower</td><td>Close‑range flame jet</td><td>Avoid corridors; lure into open; keep height advantage</td><td>Decon chokepoints</td></tr>
-        <tr><td>HMG</td><td>Suppression at range</td><td>Smoke &amp; hard cover; do not repeat peeks</td><td>Perimeter towers/gates</td></tr>
-      </tbody>
-    </table>
-  </section>
+<section class="panel">
+  <h2>Field Guidance</h2>
+  <table class="table">
+    <thead><tr><th>Variant</th><th>Primary Threat</th><th>Mitigation</th><th>Typical Area</th></tr></thead>
+    <tbody>
+      <tr><td>Class B Unit 45</td><td>Accurate automatic fire</td><td>Use corners; flank to disable; avoid open sightlines</td><td>Patrol routes / bunker doors</td></tr>
+      <tr><td>Orange/White/Black</td><td>Standard sentry routines</td><td>Noise distractions; stay at range; monitor motor whine</td><td>Interchange, labs, yards</td></tr>
+      <tr><td>Flamethrower</td><td>Close‑range flame jet</td><td>Avoid corridors; lure into open; keep height advantage</td><td>Decon chokepoints</td></tr>
+      <tr><td>HMG</td><td>Suppression at range</td><td>Smoke &amp; hard cover; do not repeat peeks</td><td>Perimeter towers/gates</td></tr>
+    </tbody>
+  </table>
+</section>
 </div>
 
-<!-- Bursty telemetry script -->
+<!-- Bursty telemetry script (CPU / RAM / TEMP only) -->
 <script>
 (function(){
   const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
   const CFG={
     cpu:{drift:2.6,spikeChance:0.10,spikeMin:10,spikeMax:28,cooldown:0.10,min:0,max:100},
     ram:{drift:1.2,spikeChance:0.06,spikeMin:6,spikeMax:16,cooldown:0.06,min:0,max:100},
-    gpu:{drift:3.4,spikeChance:0.14,spikeMin:12,spikeMax:35,cooldown:0.12,min:0,max:100},
     temp:{drift:1.8,spikeChance:0.12,spikeMin:6,spikeMax:14,cooldown:0.08,min:25,max:95}
   };
 
@@ -144,19 +143,18 @@ style.css
     const seeds={
       cpu:+box.dataset.cpu||10,
       ram:+box.dataset.ram||10,
-      gpu:+box.dataset.gpu||10,
       temp:+box.dataset.temp||40
     };
     const fills={},vals={};
     box.querySelectorAll('.fill').forEach(el=>fills[el.dataset.key]=el);
     box.querySelectorAll('.val').forEach(el=>vals[el.dataset.key]=el);
-    const cur={...seeds}, cool={cpu:false,ram:false,gpu:false,temp:false};
+    const cur={...seeds}, cool={cpu:false,ram:false,temp:false};
     const paint=(k,v)=>{ if(!fills[k])return; fills[k].style.width=clamp(v,CFG[k].min,CFG[k].max)+'%'; vals[k].textContent=(k==='temp')?Math.round(v)+'°C':Math.round(v)+'%'; };
     Object.keys(cur).forEach(k=>paint(k,cur[k]));
 
     function tickOne(key){
       const c={...CFG[key]};
-      if(box.dataset.boost==='black' && (key==='cpu'||key==='gpu'||key==='temp')){ c.spikeChance=Math.min(0.22,c.spikeChance+0.06); }
+      if(box.dataset.boost==='black' && (key==='cpu'||key==='temp')){ c.spikeChance=Math.min(0.22,c.spikeChance+0.06); }
       if(box.dataset.boost==='flame' && key==='temp'){ c.spikeChance=Math.min(0.28,c.spikeChance+0.10); c.spikeMax+=10; }
 
       let v=cur[key];
@@ -175,8 +173,7 @@ style.css
         if(Math.abs(toward)<3) cool[key]=false;
       }
 
-      if(key==='gpu'){ box._gpuHeat=(v-seeds.gpu)*0.08; }
-      if(key==='temp'&&box._gpuHeat){ v+=box._gpuHeat; }
+      // TEMP nudges CPU slightly (no GPU coupling)
       if(key==='cpu' && cur.temp){ v+=(cur.temp-seeds.temp)*0.02; }
 
       v=clamp(v,c.min,c.max);
@@ -186,7 +183,7 @@ style.css
     function loop(){
       const delay=250+Math.random()*1350;
       setTimeout(()=>{
-        ['cpu','ram','gpu','temp'].sort(()=>Math.random()-0.5).forEach(tickOne);
+        ['cpu','ram','temp'].sort(()=>Math.random()-0.5).forEach(tickOne);
         loop();
       },delay);
     }
@@ -196,4 +193,3 @@ style.css
 })();
 </script>
 </body>
-</html>
