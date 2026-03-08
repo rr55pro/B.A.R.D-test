@@ -1,311 +1,71 @@
+robots, 
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Robotics Division</title>
-  style.css
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      assets/bard_logo.png
-      <div>
-        <h1>Robotics Division</h1>
-        <div class="sub">Autonomous sentry platforms &amp; field systems</div>
-      </div>
-    </header>
-
-    <nav>
-      index.htmlHome</a>
-      bard.htmlAbout B.A.R.D</a>
-      locations.htmlLocations</a>
-      projects.htmlProjects</a>
-      robots.html<strong>Robotics</strong></a>
-      dossier.htmlDossiers</a>
-      terminal.htmlTerminal</a>
-      admin/admin-login.htmlAdmin</a>
-    </nav>
-
-    <section class="panel">
-      <h2>Overview</h2>
-      <p>B.A.R.D deployed multiple sentry families to guard approaches, corridors and keycard doors. Many platforms remained powered after the incident and continue limited patrols.</p>
-    </section>
-
-    <section class="panel grid2">
-      <div>
-        <h2>Class B Robot Unit 45</h2>
-        assets/robots/class_b_unit_45.png
-        <p>Mid‑weight chassis for patrol and door security; capable of mounting belt‑fed weapons with stabilised fire.</p>
-      </div>
-      <div>
-        <h2>Orange B.A.R.D Robot</h2>
-        assets/robots/bard_robot_orange.png
-        <p>Hazard‑panel livery; widely deployed across Interchange and exterior compounds.</p>
-      </div>
-      <div>
-        <h2>White B.A.R.D Robot</h2>
-        <img src="assets/robots/bard_robot_white.png" class="fit" alt="White BARD Robotratories and corridors; commonly paired with alarm nodes and card locks.</p>
-      </div>
-      <div>
-        <h2>Black B.A.R.D Robot</h2>
-        assets/robots/bard_robot_black.png
-        <p>Low‑visibility finish for night posts and yard coverage; harder to spot at range.</p>
-      </div>
-      <div>
-        <h2>Flamethrower Variant</h2>
-        assets/robots/bard_robot_flamethrower.png
-        <p>Area‑denial projector for corridors and decon zones. Avoid confined spaces.</p>
-      </div>
-      <div>
-        <h2>Heavy Machine‑Gun Variant</h2>
-        assets/robots/bard_robot_hmg.png
-        <p>Perimeter suppression; maintain hard cover and break line‑of‑sight.</p>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Field Guidance</h2>
-      <table class="table">
-        <thead>
-          <tr><th>Variant</th><th>Primary Threat</th><th>Mitigation</th><th>Typical Area</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Class B Unit 45</td><td>Accurate automatic fire</td><td>Use corners; flank to disable; avoid open sightlines</td><td>Patrol routes / bunker doors</td></tr>
-          <tr><td>Orange/White/Black</td><td>Standard sentry routines</td><td>Noise distractions; stay at range; monitor motor whine</td><td>Interchange, labs, yards</td></tr>
-          <tr><td>Flamethrower</td><td>Close‑range flame jet</td><td>Avoid corridors; lure into open; keep height advantage</td><td>Decon chokepoints</td></tr>
-          <tr><td>HMG</td><td>Suppression at range</td><td>Smoke &amp; hard cover; do not repeat peeks</td><td>Perimeter towers/gates</td></tr>
-        </tbody>
-      </table>
-    </section>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robotics Division</title><link rel="stylesheet" href="style.css"></head>
+<body><div class="wrap">
+<header>
+  <img src="assets/bard_logo.png" class="logo" alt="B.A.R.D logo">
+  <div><h1>Robotics Division</h1><div class="sub">Autonomous sentry platforms & field systems</div></div>
+</header>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="bard.html">About B.A.R.D</a>
+  <a href="locations.html">Locations</a>
+  <a href="projects.html">Projects</a>
+  <a href="robots.html"><strong>Robotics</strong></a>
+  <a href="dossier.html">Dossiers</a>
+  <a href="terminal.html">Terminal</a>
+  <a href="admin/admin-login.html">Admin</a>
+</nav>
+<section class="panel">
+  <h2>Overview</h2>
+  <p>B.A.R.D deployed multiple sentry families to guard approaches, corridors and keycard doors. Many platforms remained powered after the incident and continue limited patrols.</p>
+</section>
+<section class="panel grid2">
+  <div>
+    <h2>Class B Robot Unit 45</h2>
+    <img src="assets/robots/class_b_unit_45.png" class="fit" alt="Class B Robot Unit 45">
+    <p>Mid‑weight chassis for patrol and door security; capable of mounting belt‑fed weapons with stabilised fire.</p>
   </div>
-
-  <!-- ===== Robot Telemetry (your original script, moved inside body) ===== -->
-  <script>
-  (() => {
-    const css = `
-      .telemetry{display:block;margin-top:6px;font-size:12px;color:#555}
-      .telemetry-title{font-weight:700;color:#333;margin:.25rem 0 .35rem;font-size:12px;letter-spacing:.02em}
-      .telemetry-row{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
-      .telemetry .chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #cfc7b6;border-radius:6px;padding:4px 6px;white-space:nowrap}
-      .telemetry .label{font-weight:700;color:#333;letter-spacing:.02em}
-      .telemetry .bar{width:70px;height:8px;background:#f2efe6;border:1px solid #cfc7b6;border-radius:999px;overflow:hidden}
-      .telemetry .fill{height:100%;width:0%;background:#0b3c66;transition:width .25s ease}
-      .telemetry .chip.temp .fill{background:#b21f2d}
-      .telemetry .val{min-width:34px;text-align:right;color:#333}
-      @media (max-width:520px){ .telemetry .bar{width:56px} }
-    `;
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
-
-    const titleSeeds = new Map([
-      ["class b robot unit 45", {cpu:41, ram:21, temp:28}],
-      ["orange b.a.r.d robot",   {cpu:34, ram:45, temp:48}],
-      ["white b.a.r.d robot",    {cpu:28, ram:71, temp:57}],
-      ["black b.a.r.d robot",    {cpu:78, ram:76, temp:98, boost:"black"}],
-      ["flamethrower variant",   {cpu:52, ram:48, temp:67, boost:"flame"}],
-      ["heavy machine‑gun variant",{cpu:47, ram:36, temp:55}],
-      ["heavy machine-gun variant",{cpu:47, ram:36, temp:36}] // hyphen fallback
-    ]);
-
-    function makeTelemetryNode(seeds){
-      const wrap = document.createElement('div');
-      wrap.className = 'telemetry';
-      wrap.dataset.cpu  = seeds.cpu  ?? 30;
-      wrap.dataset.ram  = seeds.ram  ?? 30;
-      wrap.dataset.temp = seeds.temp ?? 45;
-      if (seeds.boost) wrap.dataset.boost = seeds.boost;
-
-      wrap.innerHTML = `
-        <div class="telemetry-title">Robot status monitor</div>
-        <div class="telemetry-row">
-          <div class="chip"><span class="label">CPU</span>
-            <div class="bar"><div class="fill" data-key="cpu"></div></div>
-            <span class="val" data-key="cpu">--</span>
-          </div>
-          <div class="chip"><span class="label">RAM</span>
-            <div class="bar"><div class="fill" data-key="ram"></div></div>
-            <span class="val" data-key="ram">--</span>
-          </div>
-          <div class="chip temp"><span class="label">TEMP</span>
-            <div class="bar"><div class="fill" data-key="temp"></div></div>
-            <span class="val" data-key="temp">--</span>
-          </div>
-        </div>`;
-      return wrap;
-    }
-
-    const cards = document.querySelectorAll('section.panel.grid2 > div');
-    const telemetryNodes = [];
-    cards.forEach(card => {
-      const h2 = card.querySelector('h2');
-      const bio = card.querySelector('p');
-      if (!h2 || !bio) return;
-      const key = h2.textContent.trim().toLowerCase();
-      const seeds = titleSeeds.get(key) || {cpu:35, ram:28, temp:44};
-      const node = makeTelemetryNode(seeds);
-      bio.insertAdjacentElement('afterend', node);
-      telemetryNodes.push(node);
-    });
-
-    function startTelemetry(box){
-      const cfg = {
-        cpu:{drift:2.6,spikeChance:0.10,spikeMin:10,spikeMax:28,cooldown:0.10,min:0,max:100},
-        ram:{drift:1.2,spikeChance:0.06,spikeMin: 6,spikeMax:16,cooldown:0.06,min:0,max:100},
-        temp:{drift:1.8,spikeChance:0.12,spikeMin: 6,spikeMax:14,cooldown:0.08,min:25,max:95}
-      };
-      const seeds = {
-        cpu:+box.dataset.cpu||10,
-        ram:+box.dataset.ram||10,
-        temp:+box.dataset.temp||40
-      };
-      const fills={}, vals={};
-      box.querySelectorAll('.fill').forEach(el=>fills[el.dataset.key]=el);
-      box.querySelectorAll('.val').forEach(el=>vals[el.dataset.key]=el);
-      const cur={...seeds}, cool={cpu:false,ram:false,temp:false};
-
-      const paint=(k,v)=>{
-        const c=cfg[k];
-        const clamped=Math.max(c.min,Math.min(c.max,v));
-        if(fills[k]) fills[k].style.width=clamped+'%';
-        if(vals[k])  vals[k].textContent=(k==='temp')?Math.round(clamped)+'°C':Math.round(clamped)+'%';
-      };
-      Object.keys(cur).forEach(k=>paint(k,cur[k]));
-
-      function tickOne(key){
-        const c={...cfg[key]};
-        if(box.dataset.boost==='black' && (key==='cpu'||key==='temp')) c.spikeChance=Math.min(0.22,c.spikeChance+0.06);
-        if(box.dataset.boost==='flame' && key==='temp'){ c.spikeChance=Math.min(0.28,c.spikeChance+0.10); c.spikeMax+=10; }
-        let v=cur[key];
-        const drift=(Math.random()*2-1)*c.drift;
-        if(Math.random()<c.spikeChance){
-          const spike=(c.spikeMin+Math.random()*(c.spikeMax-c.spikeMin))*(Math.random()<0.8?+1:-1);
-          v+=spike; cool[key]=true;
-        }else{
-          v+=drift;
-        }
-        if(cool[key]){
-          const toward=seeds[key]-v;
-          v+=toward*c.cooldown;
-          if(Math.abs(toward)<3) cool[key]=false;
-        }
-        if(key==='cpu' && cur.temp) v+=(cur.temp-seeds.temp)*0.02;
-        cur[key]=v; paint(key,v);
-      }
-
-      (function loop(){
-        const delay=250+Math.random()*1350;
-        setTimeout(()=>{ ['cpu','ram','temp'].sort(()=>Math.random()-0.5).forEach(tickOne); loop(); }, delay);
-      })();
-    }
-
-    telemetryNodes.forEach(startTelemetry);
-  })();
-  </script>
-
-  <!-- ===== Firebase presence (unique device, site-wide) ===== -->
-  <script type="module">
-    // Counts 1 per device/browser (unique Firebase UID), across ALL pages & tabs.
-    const firebaseConfig = {
-      apiKey: "AIzaSyDSkdC2shGSGv58Sqv8rchkomNxS525RRU",
-      authDomain: "b-a-r-d.firebaseapp.com",
-      databaseURL: "https://b-a-r-d-default-rtdb.firebaseio.com",
-      projectId: "b-a-r-d",
-      appId: "1:998685683728:web:6b3789b12049e903fcda95"
-    };
-
-    // Optional UI hooks (this page doesn't have them, but we keep this generic)
-    const countEl = document.getElementById('activeUsersCount');
-    const barEl   = document.getElementById('activeUsersBar');
-    const pctEl   = document.getElementById('activeUsersPct');
-
-    function updateActiveDevices(n){
-      const pct = Math.max(0, Math.min(100, n));
-      if (countEl) countEl.textContent = String(n);
-      if (barEl)   barEl.style.width = pct + '%';
-      if (pctEl)   pctEl.textContent = pct + '%';
-      // Broadcast for any listeners on the page
-      window.dispatchEvent(new CustomEvent('bard:activeDevices', { detail: { count: n, pct } }));
-    }
-    updateActiveDevices(0);
-
-    const configured =
-      !!firebaseConfig.apiKey &&
-      !!firebaseConfig.projectId &&
-      !!firebaseConfig.databaseURL &&
-      (firebaseConfig.databaseURL.includes("firebaseio.com") || firebaseConfig.databaseURL.includes("firebasedatabase.app"));
-
-    (async () => {
-      console.log("[B.A.R.D] Presence starting (robots). Path:", location.pathname);
-      if (!configured) {
-        console.warn("[B.A.R.D] Active users disabled (missing/invalid config).");
-        return;
-      }
-      try {
-        const [{ initializeApp },
-               { getDatabase, ref, onValue, set, onDisconnect, serverTimestamp },
-               { getAuth, signInAnonymously, onAuthStateChanged }] = await Promise.all([
-          import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js'),
-          import('https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js'),
-          import('https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js')
-        ]);
-
-        const app  = initializeApp(firebaseConfig);
-        const db   = getDatabase(app);
-        const auth = getAuth(app);
-
-        await signInAnonymously(auth);
-        console.log("[B.A.R.D] Signed in anonymously.");
-
-        onAuthStateChanged(auth, async (user) => {
-          if (!user) return;
-
-          const uid = user.uid;
-          const sessionId = Math.random().toString(36).slice(2,10);
-          const myPath = `presence/${uid}/${sessionId}`;
-          const myRef  = ref(db, myPath);
-
-          const writePresence = async () => {
-            await set(myRef, { ts: serverTimestamp(), page: location.pathname });
-          };
-
-          await writePresence();
-          console.log("[B.A.R.D] Wrote presence at", myPath);
-
-          onDisconnect(myRef).remove();
-          console.log("[B.A.R.D] onDisconnect registered for", myPath);
-
-          setInterval(writePresence, 20000); // heartbeat every 20s
-
-          // === Count unique devices (1 per UID), SITE-WIDE (no page filter) ===
-          const presenceRoot = ref(db, 'presence');
-          onValue(presenceRoot, (snap) => {
-            const now = Date.now();
-            const RECENT_MS = 45000;
-            const SCOPE_PATH = null; // site-wide
-
-            let totalDevices = 0;
-            snap.forEach(uidNode => {
-              let userActive = false;
-              uidNode.forEach(sessNode => {
-                const v = sessNode.val();
-                if (!v) return;
-                const ts = typeof v.ts === 'number' ? v.ts : 0;
-                const fresh = ts && (now - ts <= RECENT_MS);
-                const pageOK = !SCOPE_PATH || v.page === SCOPE_PATH;
-                if (fresh && pageOK) userActive = true;
-              });
-              if (userActive) totalDevices += 1; // 1 per device/UID
-            });
-
-            console.log("[B.A.R.D] Active devices (site-wide):", totalDevices);
-            updateActiveDevices(totalDevices);
-          });
-        });
-      } catch (err) {
-        console.error("[B.A.R.D] Active users setup failed:", err);
-      }
-    })();
-  </script>
-</body>
-</html>
+  <div>
+    <h2>Orange B.A.R.D Robot</h2>
+    <img src="assets/robots/bard_robot_orange.png" class="fit" alt="Orange BARD Robot">
+    <p>Hazard‑panel livery; widely deployed across Interchange and exterior compounds.</p>
+  </div>
+  <div>
+    <h2>White B.A.R.D Robot</h2>
+    <img src="assets/robots/bard_robot_white.png" class="fit" alt="White BARD Robot">
+    <p>Interior patrol platform for laboratories and corridors; commonly paired with alarm nodes and card locks.</p>
+  </div>
+  <div>
+    <h2>Black B.A.R.D Robot</h2>
+    <img src="assets/robots/bard_robot_black.png" class="fit" alt="Black BARD Robot">
+    <p>Low‑visibility finish for night posts and yard coverage; harder to spot at range.</p>
+  </div>
+  <div>
+    <h2>Flamethrower Variant</h2>
+    <img src="assets/robots/bard_robot_flamethrower.png" class="fit" alt="Flamethrower Robot">
+    <p>Area‑denial projector for corridors and decon zones. Avoid confined spaces.</p>
+  </div>
+  <div>
+    <h2>Heavy Machine‑Gun Variant</h2>
+    <img src="assets/robots/bard_robot_hmg.png" class="fit" alt="HMG Robot">
+    <p>Perimeter suppression; maintain hard cover and break line‑of‑sight.</p>
+  </div>
+</section>
+<section class="panel">
+  <h2>Field Guidance</h2>
+  <table class="table">
+    <thead><tr><th>Variant</th><th>Primary Threat</th><th>Mitigation</th><th>Typical Area</th></tr></thead>
+    <tbody>
+      <tr><td>Class B Unit 45</td><td>Accurate automatic fire</td><td>Use corners; flank to disable; avoid open sightlines</td><td>Patrol routes / bunker doors</td></tr>
+      <tr><td>Orange/White/Black</td><td>Standard sentry routines</td><td>Noise distractions; stay at range; monitor motor whine</td><td>Interchange, labs, yards</td></tr>
+      <tr><td>Flamethrower</td><td>Close‑range flame jet</td><td>Avoid corridors; lure into open; keep height advantage</td><td>Decon chokepoints</td></tr>
+      <tr><td>HMG</td><td>Suppression at range</td><td>Smoke & hard cover; do not repeat peeks</td><td>Perimeter towers/gates</td></tr>
+    </tbody>
+  </table>
+</section>
+</div></body></html>
