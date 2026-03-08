@@ -77,7 +77,7 @@
         ./index.htmlHome</a>
         ./projects.htmlProjects</a>
         ./files.htmlFiles</a>
-        ./locations.htmlLocations</a>
+        <a href="./locations.html</a>
         ./contact.htmlContact</a>
       </nav>
     </div>
@@ -130,7 +130,7 @@
             #usersUpdate users</a>
             #projectsLog project note</a>
             ./projects.htmlOpen Projects</a>
-            ./index.htmlGo to Admin Home</a>
+            <a class="btn" href="./ Home</a>
           </div>
         </div>
 
@@ -146,7 +146,7 @@
     </section>
 
     <!-- ================= B.A.R.D ROBOTS ================= -->
-    <details class=
+    <details class="group" id="bard-robots">
       <summary>B.A.R.D ROBOTS</summary>
       <div class="group-body">
 
@@ -183,7 +183,7 @@
       <summary>BARD FILES</summary>
       <div class="group-body">
         <div class="list">
-          ./assets/docs/overview.pdfoverview.pdf</a>
+          <a href="./assets/docs/overviewiew.pdf</a>
           ./assets/docs/specs.mdspecs.md</a>
           ./syllabus.htmlsyllabus.html</a>
         </div>
@@ -338,7 +338,7 @@
     })();
   </script>
 
-  <!-- ---------- Firebase presence (filtered + heartbeat + per-user) ---------- -->
+  <!-- ---------- Firebase presence (sessions + heartbeat + site-wide count) ---------- -->
   <script type="module">
     const firebaseConfig = {
       apiKey: "AIzaSyDSkdC2shGSGv58Sqv8rchkomNxS525RRU",
@@ -358,20 +358,33 @@
     const barEl   = document.getElementById('activeUsersBar');
     const pctEl   = document.getElementById('activeUsersPct');
 
+    // Keep your current simple bar scaling: 1 session = 1%
     const updateActiveUsers = (n) => {
-      const pct = Math.max(0, Math.min(100, n)); // 1 user = 1%
+      const pct = Math.max(0, Math.min(100, n));
       countEl.textContent = String(n);
       barEl.style.width = pct + '%';
       pctEl.textContent = pct + '%';
     };
     updateActiveUsers(0);
 
+    // OPTIONAL nicer scaling (uncomment to use; then remove the simple version above)
+    /*
+    const MAX_FOR_100 = 20; // e.g., 20 tabs == 100%
+    const updateActiveUsers = (n) => {
+      const pct = Math.max(0, Math.min(100, Math.round((n / MAX_FOR_100) * 100)));
+      countEl.textContent = String(n);
+      barEl.style.width = pct + '%';
+      pctEl.textContent = pct + '%';
+    };
+    updateActiveUsers(0);
+    */
+
     if (!configured) {
       console.warn("[B.A.R.D] Active users disabled (missing/invalid config).");
     } else {
       try {
         const [{ initializeApp },
-               { getDatabase, ref, onValue, set, onDisconnect, serverTimestamp, get, child },
+               { getDatabase, ref, onValue, set, onDisconnect, serverTimestamp },
                { getAuth, signInAnonymously, onAuthStateChanged }] = await Promise.all([
           import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js'),
           import('https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js'),
@@ -404,17 +417,19 @@
             await set(myRef, { ts: serverTimestamp(), page: location.pathname });
           }, 20000);
 
-          // Count only RECENT sessions (last 45s), and count PER-USER, optionally scoped to this page
+          // Count RECENT sessions (last 45s). SITE-WIDE by default.
           const presenceRoot = ref(db, 'presence');
           onValue(presenceRoot, (snap) => {
             const now = Date.now();
             const RECENT_MS = 45000;
-            const SCOPE_PATH = location.pathname; // change to null to count all pages
 
-            let totalUsers = 0;
+            // === Scope ===
+            // null = count all pages (site-wide). Change to location.pathname to count "this page only".
+            const SCOPE_PATH = null;
+
+            let totalSessions = 0;
 
             snap.forEach(uidNode => {
-              let userActive = false;
               uidNode.forEach(sessNode => {
                 const v = sessNode.val();
                 if (!v) return;
@@ -424,13 +439,12 @@
                 const pageOK = !SCOPE_PATH || v.page === SCOPE_PATH;
 
                 if (fresh && pageOK) {
-                  userActive = true;
+                  totalSessions += 1; // each tab/session counts
                 }
               });
-              if (userActive) totalUsers += 1;
             });
 
-            updateActiveUsers(totalUsers);
+            updateActiveUsers(totalSessions);
           });
         });
       } catch (err) {
