@@ -77,7 +77,7 @@
         ./index.htmlHome</a>
         ./projects.htmlProjects</a>
         ./files.htmlFiles</a>
-        <a href="./locations.html</a>
+        ./locations.htmlLocations</a>
         ./contact.htmlContact</a>
       </nav>
     </div>
@@ -130,7 +130,7 @@
             #usersUpdate users</a>
             #projectsLog project note</a>
             ./projects.htmlOpen Projects</a>
-            <a class="btn" href="./ Home</a>
+            ./index.htmlGo to Admin Home</a>
           </div>
         </div>
 
@@ -138,8 +138,8 @@
           <h3>Recent files</h3>
           <div class="list">
             ./assets/docs/overview.pdfoverview.pdf <small>docs</small></a>
-            ./assets/projects/roadmap.mdroadmap.md <small>projects</small></a>
-            ./htmlsyllabus.html <small>site</small></a>
+            <a href="./assets/projects/roadmap.mdd <small>projects</small></a>
+            ./syllabus.htmlsyllabus.html <small>site</small></a>
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@
       <summary>BARD FILES</summary>
       <div class="group-body">
         <div class="list">
-          <a href="./assets/docs/overviewiew.pdf</a>
+          ./assets/docs/overview.pdfoverview.pdf</a>
           ./assets/docs/specs.mdspecs.md</a>
           ./syllabus.htmlsyllabus.html</a>
         </div>
@@ -338,7 +338,7 @@
     })();
   </script>
 
-  <!-- ---------- Firebase presence (sessions + heartbeat + site-wide count) ---------- -->
+  <!-- ---------- Firebase presence (unique device across site) ---------- -->
   <script type="module">
     const firebaseConfig = {
       apiKey: "AIzaSyDSkdC2shGSGv58Sqv8rchkomNxS525RRU",
@@ -358,7 +358,7 @@
     const barEl   = document.getElementById('activeUsersBar');
     const pctEl   = document.getElementById('activeUsersPct');
 
-    // Keep your current simple bar scaling: 1 session = 1%
+    // Simple scaling: 1 device = 1%
     const updateActiveUsers = (n) => {
       const pct = Math.max(0, Math.min(100, n));
       countEl.textContent = String(n);
@@ -366,18 +366,6 @@
       pctEl.textContent = pct + '%';
     };
     updateActiveUsers(0);
-
-    // OPTIONAL nicer scaling (uncomment to use; then remove the simple version above)
-    /*
-    const MAX_FOR_100 = 20; // e.g., 20 tabs == 100%
-    const updateActiveUsers = (n) => {
-      const pct = Math.max(0, Math.min(100, Math.round((n / MAX_FOR_100) * 100)));
-      countEl.textContent = String(n);
-      barEl.style.width = pct + '%';
-      pctEl.textContent = pct + '%';
-    };
-    updateActiveUsers(0);
-    */
 
     if (!configured) {
       console.warn("[B.A.R.D] Active users disabled (missing/invalid config).");
@@ -417,19 +405,19 @@
             await set(myRef, { ts: serverTimestamp(), page: location.pathname });
           }, 20000);
 
-          // Count RECENT sessions (last 45s). SITE-WIDE by default.
+          // === Count unique devices (1 per UID), site-wide ===
           const presenceRoot = ref(db, 'presence');
           onValue(presenceRoot, (snap) => {
             const now = Date.now();
             const RECENT_MS = 45000;
 
-            // === Scope ===
-            // null = count all pages (site-wide). Change to location.pathname to count "this page only".
+            // Site-wide scope (count across all pages)
             const SCOPE_PATH = null;
 
-            let totalSessions = 0;
+            let totalDevices = 0;
 
             snap.forEach(uidNode => {
+              let userActive = false;
               uidNode.forEach(sessNode => {
                 const v = sessNode.val();
                 if (!v) return;
@@ -439,12 +427,13 @@
                 const pageOK = !SCOPE_PATH || v.page === SCOPE_PATH;
 
                 if (fresh && pageOK) {
-                  totalSessions += 1; // each tab/session counts
+                  userActive = true; // at least one fresh session for this UID
                 }
               });
+              if (userActive) totalDevices += 1; // count 1 per UID
             });
 
-            updateActiveUsers(totalSessions);
+            updateActiveUsers(totalDevices);
           });
         });
       } catch (err) {
