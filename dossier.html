@@ -23,3 +23,117 @@
   <p>Security addendum: robotics sentry response heightened following <span class="redact">event at L‑10</span>.</p>
 </section>
 </div></body></html>
+
+
+
+
+<!-- ---------- Firebase presence (unique device, site-wide) ---------- -->
+<script type="module">
+  // This script keeps your device counted across ALL pages and tabs (1 per device/browser profile).
+  const firebaseConfig = {
+    apiKey: "AIzaSyDSkdC2shGSGv58Sqv8rchkomNxS525RRU",
+    authDomain: "b-a-r-d.firebaseapp.com",
+    databaseURL: "https://b-a-r-d-default-rtdb.firebaseio.com",
+    projectId: "b-a-r-d",
+    appId: "1:998685683728:web:6b3789b12049e903fcda95"
+  };
+
+  // If the Active Users UI exists on this page, we’ll update it; otherwise we just log.
+  const countEl = document.getElementById('activeUsersCount');
+  const barEl   = document.getElementById('activeUsersBar');
+  const pctEl   = document.getElementById('activeUsersPct');
+
+  const configured =
+    !!firebaseConfig.apiKey &&
+    !!firebaseConfig.projectId &&
+    !!firebaseConfig.databaseURL &&
+    (firebaseConfig.databaseURL.includes("firebaseio.com") || firebaseConfig.databaseURL.includes("firebasedatabase.app"));
+
+  function updateActiveDevices(n){
+    const pct = Math.max(0, Math.min(100, n)); // simple 1 device = 1%
+    if (countEl) countEl.textContent = String(n);
+    if (barEl)   barEl.style.width = pct + '%';
+    if (pctEl)   pctEl.textContent = pct + '%';
+    // Also dispatch a site-wide event any page can listen to
+    window.dispatchEvent(new CustomEvent('bard:activeDevices', { detail: { count: n, pct } }));
+  }
+  updateActiveDevices(0);
+
+  (async () => {
+    console.log("[B.A.R.D] Presence starting. Path:", location.pathname);
+    if (!configured) {
+      console.warn("[B.A.R.D] Active users disabled (missing/invalid config).");
+      return;
+    }
+    try {
+      const [{ initializeApp },
+             { getDatabase, ref, onValue, set, onDisconnect, serverTimestamp },
+             { getAuth, signInAnonymously, onAuthStateChanged }] = await Promise.all([
+        import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js'),
+        import('https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js'),
+        import('https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js')
+      ]);
+
+      const app  = initializeApp(firebaseConfig);
+      const db   = getDatabase(app);
+      const auth = getAuth(app);
+
+      await signInAnonymously(auth);
+      console.log("[B.A.R.D] Signed in anonymously.");
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) return;
+
+        const uid = user.uid;
+        const sessionId = Math.random().toString(36).slice(2,10);
+        const myPath = `presence/${uid}/${sessionId}`;
+        const myRef  = ref(db, myPath);
+
+        const writePresence = async () => {
+          await set(myRef, { ts: serverTimestamp(), page: location.pathname });
+        };
+
+        await writePresence();
+        console.log("[B.A.R.D] Wrote presence at", myPath);
+
+        onDisconnect(myRef).remove();
+        console.log("[B.A.R.D] onDisconnect registered for", myPath);
+
+        setInterval(writePresence, 20000); // heartbeat 20s
+
+        // === Count unique devices (1 per UID), SITE-WIDE (SCOPE_PATH = null) ===
+        const presenceRoot = ref(db, 'presence');
+        onValue(presenceRoot, (snap) => {
+          const now = Date.now();
+          const RECENT_MS = 45000;
+          const SCOPE_PATH = null; // site-wide: do not filter by page
+
+          let totalDevices = 0;
+
+          snap.forEach(uidNode => {
+            let userActive = false;
+            uidNode.forEach(sessNode => {
+              const v = sessNode.val();
+              if (!v) return;
+
+              const ts = typeof v.ts === 'number' ? v.ts : 0;
+              const fresh = ts && (now - ts <= RECENT_MS);
+              const pageOK = !SCOPE_PATH || v.page === SCOPE_PATH;
+
+              if (fresh && pageOK) userActive = true;
+            });
+            if (userActive) totalDevices += 1;
+          });
+
+          console.log("[B.A.R.D] Active devices:", totalDevices);
+          updateActiveDevices(totalDevices);
+        });
+      });
+    } catch (err) {
+      console.error("[B.A.R.D] Active users setup failed:", err);
+    }
+  })();
+</script>
+
+</body>
+</html>
