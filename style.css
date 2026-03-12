@@ -9,6 +9,8 @@ header img.logo{height: 100px;
     position: absolute;
     top: 0;
     left: 0;}
+    right: 2;}
+
 header div.logodev{position: fixed; top: 0; left: 0; width: 100%}
 header h1{margin:0;font-size:28px;padding-left: 50px;}
 .sub{color:#444;margin-top:4px;padding-left: 50px}
