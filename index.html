@@ -80,11 +80,10 @@
     (firebaseConfig.databaseURL.includes("firebaseio.com") || firebaseConfig.databaseURL.includes("firebasedatabase.app"));
 
   function updateActiveDevices(n){
-    const pct = Math.max(0, Math.min(100, n)); // simple 1 device = 1%
+    const pct = Math.max(0, Math.min(100, n));
     if (countEl) countEl.textContent = String(n);
     if (barEl)   barEl.style.width = pct + '%';
     if (pctEl)   pctEl.textContent = pct + '%';
-    // Also dispatch a site-wide event any page can listen to
     window.dispatchEvent(new CustomEvent('bard:activeDevices', { detail: { count: n, pct } }));
   }
   updateActiveDevices(0);
