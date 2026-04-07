@@ -45,11 +45,27 @@
   const barEl   = document.getElementById('activeUsersBar');
   const pctEl   = document.getElementById('activeUsersPct');
 
+  function isAllowedFirebaseDatabaseUrl(urlString) {
+    try {
+      const u = new URL(urlString);
+      const host = u.hostname;
+      // Allow hosts that are exactly firebaseio.com / firebasedatabase.app
+      // or subdomains of those domains (like "<project>.firebaseio.com").
+      const allowedRoots = ["firebaseio.com", "firebasedatabase.app"];
+      return allowedRoots.some(root =>
+        host === root || host.endsWith("." + root)
+      );
+    } catch (e) {
+      // Invalid URL
+      return false;
+    }
+  }
+
   const configured =
     !!firebaseConfig.apiKey &&
     !!firebaseConfig.projectId &&
     !!firebaseConfig.databaseURL &&
-    (firebaseConfig.databaseURL.includes("firebaseio.com") || firebaseConfig.databaseURL.includes("firebasedatabase.app"));
+    isAllowedFirebaseDatabaseUrl(firebaseConfig.databaseURL);
 
   function updateActiveDevices(n){
     const pct = Math.max(0, Math.min(100, n)); // simple 1 device = 1%
