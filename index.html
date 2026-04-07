@@ -115,7 +115,21 @@
         if (!user) return;
 
         const uid = user.uid;
-        const sessionId = Math.random().toString(36).slice(2,10);
+        const sessionId = (() => {
+          // Generate an 8-character, URL-safe, cryptographically secure session ID.
+          const length = 8;
+          const bytes = new Uint8Array(length);
+          (window.crypto || self.crypto).getRandomValues(bytes);
+          const alphabet = '0123456789abcdefghijklmnopqrstuvwxyz';
+          let id = '';
+          for (let i = 0; i < length; i++) {
+            // Map each byte to a character in the alphabet without modulo bias concerns
+            // by using the upper 6 bits (0-63) and folding into 0-35.
+            const v = bytes[i] & 63;
+            id += alphabet[v % alphabet.length];
+          }
+          return id;
+        })();
         const myPath = `presence/${uid}/${sessionId}`;
         const myRef  = ref(db, myPath);
 
