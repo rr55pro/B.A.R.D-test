@@ -389,11 +389,22 @@
         // Sign in anonymously so this tab can write presence
         await signInAnonymously(auth);
 
+        // Generate a cryptographically secure session identifier
+        function generateSecureSessionId() {
+          const bytes = new Uint8Array(6); // 48 bits of randomness
+          window.crypto.getRandomValues(bytes);
+          let num = 0;
+          for (let i = 0; i < bytes.length; i++) {
+            num = (num << 8) | bytes[i];
+          }
+          return num.toString(36).padStart(8, '0').slice(0, 8);
+        }
+
         onAuthStateChanged(auth, async (user) => {
           if (!user) return;
 
           const uid = user.uid;
-          const sessionId = Math.random().toString(36).slice(2,10);
+          const sessionId = generateSecureSessionId();
           const myPath = `presence/${uid}/${sessionId}`;
           const myRef  = ref(db, myPath);
 
