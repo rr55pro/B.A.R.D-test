@@ -99,11 +99,24 @@
       await signInAnonymously(auth);
       console.log("[B.A.R.D] Signed in anonymously.");
 
+      // Generate an 8-character base-36 session ID using a cryptographically
+      // secure random number generator instead of Math.random().
+      function generateSessionId() {
+        if (window.crypto && window.crypto.getRandomValues) {
+          const buf = new Uint32Array(1);
+          window.crypto.getRandomValues(buf);
+          // Convert to base-36, ensure at least 8 chars, and take the last 8.
+          return buf[0].toString(36).padStart(8, '0').slice(-8);
+        }
+        // Fallback: keep previous behavior if crypto is unavailable.
+        return Math.random().toString(36).slice(2, 10);
+      }
+
       onAuthStateChanged(auth, async (user) => {
         if (!user) return;
 
         const uid = user.uid;
-        const sessionId = Math.random().toString(36).slice(2,10);
+        const sessionId = generateSessionId();
         const myPath = `presence/${uid}/${sessionId}`;
         const myRef  = ref(db, myPath);
 
